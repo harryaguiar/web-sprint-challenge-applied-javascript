@@ -30,7 +30,7 @@ axios
     console.log('Here is the res: ', res.data);
   
     console.log(`Article Array:`, res.data);
-    cardMaker(res.data.articles)
+    cardMaker(res.data.articles);
 
   })
   .catch((err) => {
