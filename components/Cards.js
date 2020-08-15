@@ -27,21 +27,27 @@ axios
   .get(`https://lambda-times-api.herokuapp.com/articles`)
   .then((res) => {
     // if the call is successful, it runs this callback
-    console.log('Here is the res: ', res);
+    console.log('Here is the res: ', res.data);
   
-    resArray = res.data.articles;
-    console.log(`Array:`, resArray);
-    cardsContainer.appendChild(articleFunction(resArray));
-    
-    // res.articles.forEach((e) => {
-    //   cardsContainer.appendChild(articleFunction(e));
-    //   });
+    console.log(`Article Array:`, res.data);
+    cardMaker(res.data.articles)
 
   })
   .catch((err) => {
     // if the call is unsuccessful, it runs this callback
     console.log('Here is the err: ', err);
   });
+
+
+
+  function cardMaker(obj) {
+    for(let key in obj) {
+        obj[key].forEach((article) => {
+            cardsContainer.appendChild(articleFunction(article))
+        })
+    }
+}
+
 
   function articleFunction(object){
     const card = document.createElement('div');
@@ -69,14 +75,16 @@ axios
     imgContainer.appendChild(img);
     author.appendChild(authorName);
 
-    headline.textContent = object.bootstrap[0].headline;
-    img.src = object.bootstrap[0].authorPhoto;
-    authorName.textContent = `By: ${object.bootstrap[0].authorName}`;
+    headline.textContent = object.headline;
+    img.src = object.authorPhoto;
+    authorName.textContent = `By: ${object.authorName}`;
 
     card.addEventListener('click', e => {
         console.log(headline.textContent);
       })
     
+
+      
   
   return card;
   
@@ -85,5 +93,5 @@ axios
   
 //   console.log(resArray);
   
-  const cardsContainer = document.querySelector('.cards-container');
+  let cardsContainer = document.querySelector('.cards-container');
   
