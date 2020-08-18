@@ -41,8 +41,8 @@ axios
 
 
   function cardMaker(obj) {
-    for(let key in obj) {
-        obj[key].forEach((article) => {
+    for(let x in obj) {
+        obj[x].forEach((article) => {
             cardsContainer.appendChild(articleFunction(article))
         })
     }
